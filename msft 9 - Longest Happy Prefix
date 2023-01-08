@@ -1,0 +1,43 @@
+
+
+class Solution {
+public:
+    string longestPrefix(string s) {
+
+        int h1=0,h2=0;
+        int ans=-1;
+        if(s.length()==1)return "";
+
+        h1=s[0];h2=s[s.length()-1];
+
+        if(h1==h2)ans=0;
+             
+
+        int j=2;
+
+        for(int i=1;i<s.length()-1;i++){
+
+            
+            h1=(h1+(j)*s[i])%998243;
+            h2=((2*h2)+s[s.length()-1-i])%998243;
+
+            if(h1==h2 && s[0]==s[s.length()-1-i]){
+                ans=i;
+            }
+
+            j=(j*2)%998243;
+
+        }
+
+        string t;
+
+        for(int i=0;i<=ans;i++){
+            t+=s[i];
+        }
+        
+        return t;
+
+
+        
+    }
+};
