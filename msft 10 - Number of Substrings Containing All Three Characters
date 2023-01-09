@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        set<int> a;
+        set<int> b;
+        set<int> c;
+        int n=s.length();
+
+        for(int i=0;i<n;i++){
+            if(s[i]=='a')a.insert(i);
+             if(s[i]=='b')b.insert(i);
+              if(s[i]=='c')c.insert(i);
+        }
+
+        int ans=0;
+        for(int i=0;i<n;i++){
+            if(s[i]=='a'){
+               auto it = b.lower_bound(i);
+               auto it1 = c.lower_bound(i);
+               if(it==b.end()  || it1==c.end())break;
+               ans+=min(n-(*it),n-(*it1));
+               
+            }
+            if(s[i]=='b'){
+               auto it = a.lower_bound(i);
+               auto it1 = c.lower_bound(i);
+               if(it==a.end()  || it1==c.end())break;
+               ans+=min(n-*it,n-*it1);
+            }
+            if(s[i]=='c'){
+               auto it = b.lower_bound(i);
+               auto it1 = a.lower_bound(i);
+               if(it==b.end()  || it1==a.end())break;
+               ans+=min(n-*it,n-*it1);
+            }
+            cout<<ans<<endl;
+        }
+
+        return ans;
+
+    }
+};
